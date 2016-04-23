@@ -49,6 +49,8 @@ CreateConVar("altboard_maxteamforcustom", altboard.MaxTeamForCustom, {FCVAR_REPL
 if SERVER then
 	AddCSLuaFile()
 	
+
+		
 	local settings = {}
 		
 	function altboard.InitializePlayer(ply)
@@ -147,8 +149,8 @@ altboard.pages = {
 
 altboard.page_URLs = {
 nil,
-"http://pastebin.com/raw/GPPbEdNJ",
-"http://pastebin.com/raw/ayEAcsMj"
+"http://inervate.com/dev/altboard/rules.htm",
+"http://inervate.com/dev/altboard/about.htm" 
 }
 
 altboard.nextCheck = 0
@@ -648,8 +650,35 @@ function altboard.create()
 		
 		local h = altboard.CurHeight
 		
-		
 		y = ScrH()/2 - h/2
+		
+		if altboard.CurHeight == targetH and altboard.SelectedPage and altboard.SelectedPage != 1 and altboard.page_URLs[altboard.SelectedPage] then
+		
+			if (!altboard.page or !altboard.page:IsValid() or altboard.page.loadedURL != altboard.SelectedPage) then
+		
+				if (altboard.page and altboard.page:IsValid()) then
+					altboard.page:Remove()
+					altboard.page = nil
+				end
+		
+				altboard.page = vgui.Create( "HTML", altboard.panel )
+				altboard.page:SetPos( x-1, y+2 )
+				altboard.page:SetSize( w+2, h+2 )
+				
+				//altboard.page:MouseCapture(false)
+				//altboard.page:SetMouseInputEnabled(false)
+				//altboard.page:SetKeyboardInputEnabled(false)
+				altboard.page:SetZPos(100)
+				-- altboard.page:MakePopup(true)
+				
+				altboard.page:OpenURL( altboard.page_URLs[altboard.SelectedPage] ) 
+				altboard.page.loadedURL = altboard.SelectedPage
+				
+			end
+		end
+
+		
+		
 	
 		if (#altboard.avatars > #players) then
 			altboard.avatars[1]:Remove()
@@ -681,7 +710,11 @@ function altboard.create()
 		local tabX = x + w - (tabW*#altboard.pages) + 5
 		
 		
-		draw.RoundedBox( 4, x-6, tabY - 5, w+12, 24 - 10, Color(0,0,0,150) )
+		draw.RoundedBox( 4, x, tabY - 5, w, 24 - 10, Color(0,0,0,150) )
+		
+		-- surface.SetTexture(altboard.gradient_cen)
+		-- surface.SetDrawColor(Color(0,0,0,200))
+		-- surface.DrawTexturedRect(x-6, tabY - 5, w+12, 24 - 10)
 		
 		for i = 1, #altboard.pages do
 			local page = altboard.pages[i]
@@ -740,37 +773,7 @@ function altboard.create()
 						altboard.page = nil
 					end
 					
-					if altboard.page_URLs[i] then
 					
-						altboard.page = vgui.Create( "HTML", altboard.panel )
-						altboard.page:SetPos( x-1, y+2 )
-						altboard.page:SetSize( w+2, h+2 )
-						
-						altboard.page:MouseCapture(false)
-						altboard.page:SetMouseInputEnabled(false)
-						altboard.page:SetKeyboardInputEnabled(false)
-						altboard.page:SetZPos(100)
-						-- altboard.page:MakePopup(true)
-						
-						altboard.page:OpenURL( altboard.page_URLs[i] ) 
-					
-					elseif page == "Options" then
-						// make a regular panel with options in it
-						
-						altboard.page = vgui.Create( "DPanel", altboard.panel )
-						altboard.page:SetPos( x-1, y+2 )
-						altboard.page:SetSize( w+2, h+2 )
-						
-						altboard.page:MouseCapture(false)
-						altboard.page:SetMouseInputEnabled(false)
-						altboard.page:SetKeyboardInputEnabled(false)
-						altboard.page:SetZPos(100)
-						
-						altboard.page.Paint = function(w,h)
-							draw.RoundedBox( 4, 0, 0, w, h, Color(150,150,150,100) )	
-						end
-						
-					end
 					
 					
 				end
