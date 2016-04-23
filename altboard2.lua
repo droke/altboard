@@ -968,7 +968,11 @@ function altboard.create()
 							altboard.dropmenu = DermaMenu()
 							
 							local goto = altboard.dropmenu:AddOption( "Goto", function() RunConsoleCommand(altboard.CommandPrefix, "goto", target) end )
-							goto:SetIcon( "icon16/arrow_switch.png" )							
+							goto:SetIcon( "icon16/arrow_right.png" )			
+
+							local bring = altboard.dropmenu:AddOption( "Bring", function() RunConsoleCommand(altboard.CommandPrefix, "bring", target) end )
+							bring:SetIcon( "icon16/arrow_left.png" )			
+
 							
 							local steam_profile = altboard.dropmenu:AddOption( "Steam Profile", function() p:ShowProfile() end )
 							steam_profile:SetIcon( "icon16/application_osx_terminal.png" )
@@ -986,8 +990,6 @@ function altboard.create()
 							local subMenu, dropMenuOption = altboard.dropmenu:AddSubMenu( "Utility" )
 							dropMenuOption:SetIcon( "icon16/wand.png" )
 							
-							subMenu:AddOption( "Goto", function() RunConsoleCommand(altboard.CommandPrefix, "goto", target) end )
-							subMenu:AddOption( "Bring", function() RunConsoleCommand(altboard.CommandPrefix, "bring", target) end )
 							subMenu:AddOption( "Print Details", function() 
 								
 								print("ID: " .. p:UserID(), "Name: " ..p:Name())
