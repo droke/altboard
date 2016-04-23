@@ -959,7 +959,11 @@ function altboard.create()
 						if altboard.WasMousePressed(MOUSE_RIGHT) then
 							altboard.dropmenu = DermaMenu()
 							
-													
+							local target = "$" .. p:UserID()		
+
+							if fusion then
+								target = p:SteamID()
+							end						
 							
 							altboard.dropmenu = DermaMenu()
 							
@@ -979,40 +983,31 @@ function altboard.create()
 								mute:SetIcon( "icon16/sound_mute.png" ) 
 							end
 								
-								local target = "$" .. p:UserID()		
-
-								if fusion then
-									target = p:SteamID()
-								end
+							local subMenu, dropMenuOption = altboard.dropmenu:AddSubMenu( "Utility" )
+							dropMenuOption:SetIcon( "icon16/wand.png" )
 							
-							-- if (LocalPlayer():IsAdmin()) then
-								local subMenu, dropMenuOption = altboard.dropmenu:AddSubMenu( "Utility" )
-								dropMenuOption:SetIcon( "icon16/wand.png" )
+							subMenu:AddOption( "Goto", function() RunConsoleCommand(altboard.CommandPrefix, "goto", target) end )
+							subMenu:AddOption( "Bring", function() RunConsoleCommand(altboard.CommandPrefix, "bring", target) end )
+							subMenu:AddOption( "Print Details", function() 
 								
-								subMenu:AddOption( "Goto", function() RunConsoleCommand(altboard.CommandPrefix, "goto", target) end )
-								subMenu:AddOption( "Bring", function() RunConsoleCommand(altboard.CommandPrefix, "bring", target) end )
-								subMenu:AddOption( "Print Details", function() 
-									
-									print("ID: " .. p:UserID(), "Name: " ..p:Name())
-									print("Usergroup: " .. p:GetNWString("usergroup"), "SteamID: " ..p:SteamID())
-									print("Ping: " .. p:Ping())
-									
-									local time = altboard.GetTime(p)
-									local timespent = timeToStr( time, true)
-									
-									print("Timespent: " .. timespent)
-									print("Frags: " .. p:Frags(), "Deaths: " .. p:Deaths(), p:Frags()/p:Deaths())
-									
-									print("Spawned:")
-									for i = 1, #counts do								
-										print(p:GetCount(counts[i]) .. "\t" .. counts[i])
-									end
-									
-									
+								print("ID: " .. p:UserID(), "Name: " ..p:Name())
+								print("Usergroup: " .. p:GetNWString("usergroup"), "SteamID: " ..p:SteamID())
+								print("Ping: " .. p:Ping())
+								
+								local time = altboard.GetTime(p)
+								local timespent = timeToStr( time, true)
+								
+								print("Timespent: " .. timespent)
+								print("Frags: " .. p:Frags(), "Deaths: " .. p:Deaths(), p:Frags()/p:Deaths())
+								
+								print("Spawned:")
+								for i = 1, #counts do								
+									print(p:GetCount(counts[i]) .. "\t" .. counts[i])
+								end
+								
+								
 
-								end )
-								
-							-- end
+							end )
 							
 							if (LocalPlayer():IsAdmin() or LocalPlayer():IsUserGroup("trialdef")) then
 								local subMenu, dropMenuOption = altboard.dropmenu:AddSubMenu( "Punish" )
