@@ -38,13 +38,13 @@ function altboard.getTeamColour(ply)
 	return team.GetColor(ply:Team())
 end
 
-CreateConVar("altboard_name", "gmod gmod", {FCVAR_REPLICATED})	
-CreateConVar("altboard_desc", "it's a hell of a town", {FCVAR_REPLICATED})
-CreateConVar("altboard_colour_r", "100", {FCVAR_REPLICATED})
-CreateConVar("altboard_colour_g", "100", {FCVAR_REPLICATED})
-CreateConVar("altboard_colour_b", "100", {FCVAR_REPLICATED})	
-CreateConVar("altboard_groups", groups_default, {FCVAR_REPLICATED})
-CreateConVar("altboard_maxteamforcustom", altboard.MaxTeamForCustom, {FCVAR_REPLICATED})
+CreateConVar("altboard2_name", "gmod gmod", {FCVAR_REPLICATED})	
+CreateConVar("altboard2_desc", "it's a hell of a town", {FCVAR_REPLICATED})
+CreateConVar("altboard2_colour_r", "100", {FCVAR_REPLICATED})
+CreateConVar("altboard2_colour_g", "100", {FCVAR_REPLICATED})
+CreateConVar("altboard2_colour_b", "100", {FCVAR_REPLICATED})	
+CreateConVar("altboard2_groups", groups_default, {FCVAR_REPLICATED})
+CreateConVar("altboard2_maxteamforcustom", altboard.MaxTeamForCustom, {FCVAR_REPLICATED})
 
 if SERVER then
 	AddCSLuaFile()
@@ -119,7 +119,7 @@ if SERVER then
 		if set then ply:SetPData("altTeamName", name) end
 	end
 	
-	concommand.Add("altboard_teamcolour", function(ply, cmd, args)
+	concommand.Add("altboard2_teamcolour", function(ply, cmd, args)
 		local r,g,b = tonumber(args[1]), tonumber(args[2]), tonumber(args[3])
 
 		
@@ -129,7 +129,7 @@ if SERVER then
 		
 	end)
 	
-	concommand.Add("altboard_teamname", function(ply, cmd, args)
+	concommand.Add("altboard2_teamname", function(ply, cmd, args)
 		local name = string.Implode(" ", args)
 		
 		if name then
@@ -324,7 +324,7 @@ end
 
 altboard.defaultspeed = 500
 
-CreateClientConVar( "altboard_speed", altboard.defaultspeed .. "", true, false )
+CreateClientConVar( "altboard2_speed", altboard.defaultspeed .. "", true, false )
 
 function altboard.create()
 	
@@ -497,13 +497,13 @@ function altboard.create()
 		end
 	})
 
-	altboard.name = GetConVarString("altboard_name") or "error in altboard_name"
-	local r,g,b = GetConVarNumber("altboard_colour_r") or 100, GetConVarNumber("altboard_colour_g") or 100, GetConVarNumber("altboard_colour_b") or 100
+	altboard.name = GetConVarString("altboard2_name") or "error in altboard_name"
+	local r,g,b = GetConVarNumber("altboard2_colour_r") or 100, GetConVarNumber("altboard2_colour_g") or 100, GetConVarNumber("altboard2_colour_b") or 100
 
 	altboard.colour = Color(r,g,b)
-	altboard.desc = GetConVarString("altboard_desc") or "error in altboard_desc"
+	altboard.desc = GetConVarString("altboard2_desc") or "error in altboard_desc"
 	 
-	local groups = GetConVarString("altboard_groups")or groups_default
+	local groups = GetConVarString("altboard2_groups")or groups_default
 	altboard.groups = string.Explode(",", groups)
 
 	local maxwidth = 0//170 + 4 + 30
@@ -633,7 +633,7 @@ function altboard.create()
 		local y = buffer
 		local w = w2 - (buffer*2)
 		
-		local animspeed = GetConVarNumber("altboard_speed") or altboard.defaultspeed
+		local animspeed = GetConVarNumber("altboard2_speed") or altboard.defaultspeed
 		
 		local targetH = bar*#altboard.playerlist
 		if (!altboard.IsOnScoreboard()) then
