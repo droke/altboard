@@ -38,13 +38,13 @@ function altboard.getTeamColour(ply)
 	return team.GetColor(ply:Team())
 end
 
-CreateConVar("altboard_name", "gmod gmod", {FCVAR_REPLICATED, FCVAR_ARCHIVE})	
-CreateConVar("altboard_desc", "it's a hell of a town", {FCVAR_REPLICATED, FCVAR_ARCHIVE})
-CreateConVar("altboard_colour_r", "100", {FCVAR_REPLICATED, FCVAR_ARCHIVE})
-CreateConVar("altboard_colour_g", "100", {FCVAR_REPLICATED, FCVAR_ARCHIVE})
-CreateConVar("altboard_colour_b", "100", {FCVAR_REPLICATED, FCVAR_ARCHIVE})	
-CreateConVar("altboard_groups", groups_default, {FCVAR_REPLICATED, FCVAR_ARCHIVE})
-CreateConVar("altboard_maxteamforcustom", altboard.MaxTeamForCustom, {FCVAR_REPLICATED, FCVAR_ARCHIVE})
+CreateConVar("altboard_name", "gmod gmod", {FCVAR_REPLICATED})	
+CreateConVar("altboard_desc", "it's a hell of a town", {FCVAR_REPLICATED})
+CreateConVar("altboard_colour_r", "100", {FCVAR_REPLICATED})
+CreateConVar("altboard_colour_g", "100", {FCVAR_REPLICATED})
+CreateConVar("altboard_colour_b", "100", {FCVAR_REPLICATED})	
+CreateConVar("altboard_groups", groups_default, {FCVAR_REPLICATED})
+CreateConVar("altboard_maxteamforcustom", altboard.MaxTeamForCustom, {FCVAR_REPLICATED})
 
 if SERVER then
 	AddCSLuaFile()
